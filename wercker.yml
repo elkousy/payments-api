@@ -15,3 +15,6 @@ build:
     - script:
         name: unit-test project
         code: make unit-test
+    
+    - zhevron/goveralls:
+        token: $COVERALLS_TOKEN
