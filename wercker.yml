@@ -16,5 +16,5 @@ build:
         name: unit-test project
         code: make unit-test
     
-    - zhevron/goveralls:
+    - ricardo-ch/goveralls:
         token: $COVERALLS_TOKEN
