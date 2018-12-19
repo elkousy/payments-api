@@ -1,4 +1,5 @@
 # Payments API
+[![wercker status](https://app.wercker.com/status/fe77fc3db8a9c8cf04e858b791b65a72/s/master "wercker status")](https://app.wercker.com/project/byKey/fe77fc3db8a9c8cf04e858b791b65a72)
 
 A home exercise requested by Form3. The purpose is to build a REST API with CRUD operations on a the `payments` resource. The representation schema is defined [here](http://mockbin.org/bin/41ca3269-d8c4-4063-9fd5-f306814ff03f)
 
