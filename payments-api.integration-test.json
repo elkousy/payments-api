@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "ff9484e4-a214-453f-a58b-0ce8331320af",
+		"name": "Payments API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post a new Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e281ecf9-39ce-4b70-9498-877054616ef7",
+						"exec": [
+							"pm.test(\"Request was successful\", function(){",
+							"    pm.response.to.be.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response contains expected fields (data, links)\", function() {",
+							"let json = pm.response.json();",
+							"pm.expect(json).to.have.property('id');",
+							"pm.expect(json).to.have.property('links');",
+							"pm.expect(json.links).to.have.property('self');",
+							"pm.globals.set(\"id\", json.id);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"type\": \"Payment\",\n      \"version\": 0,\n      \"organisation_id\": \"743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb\",\n      \"attributes\": {\n        \"amount\": \"100.21\",\n        \"beneficiary_party\": {\n          \"account_name\": \"W Owens\",\n          \"account_number\": \"31926819\",\n          \"account_number_code\": \"BBAN\",\n          \"account_type\": 0,\n          \"address\": \"1 The Beneficiary Localtown SE2\",\n          \"bank_id\": \"403000\",\n          \"bank_id_code\": \"GBDSC\",\n          \"name\": \"Wilfred Jeremiah Owens\"\n        },\n        \"charges_information\": {\n          \"bearer_code\": \"SHAR\",\n          \"sender_charges\": [\n            {\n              \"amount\": \"5.00\",\n              \"currency\": \"GBP\"\n            },\n            {\n              \"amount\": \"10.00\",\n              \"currency\": \"USD\"\n            }\n          ],\n          \"receiver_charges_amount\": \"1.00\",\n          \"receiver_charges_currency\": \"USD\"\n        },\n        \"currency\": \"GBP\",\n        \"debtor_party\": {\n          \"account_name\": \"EJ Brown Black\",\n          \"account_number\": \"GB29XABC10161234567801\",\n          \"account_number_code\": \"IBAN\",\n          \"address\": \"10 Debtor Crescent Sourcetown NE1\",\n          \"bank_id\": \"203301\",\n          \"bank_id_code\": \"GBDSC\",\n          \"name\": \"Emelia Jane Brown\"\n        },\n        \"end_to_end_reference\": \"Wil piano Jan\",\n        \"fx\": {\n          \"contract_reference\": \"FX123\",\n          \"exchange_rate\": \"2.00000\",\n          \"original_amount\": \"200.42\",\n          \"original_currency\": \"USD\"\n        },\n        \"numeric_reference\": \"1002001\",\n        \"payment_id\": \"123456789012345678\",\n        \"payment_purpose\": \"Paying for goods/services\",\n        \"payment_scheme\": \"FPS\",\n        \"payment_type\": \"Credit\",\n        \"processing_date\": \"2017-01-18\",\n        \"reference\": \"Payment for Em's piano lessons\",\n        \"scheme_payment_sub_type\": \"InternetBanking\",\n        \"scheme_payment_type\": \"ImmediatePayment\",\n        \"sponsor_party\": {\n          \"account_number\": \"56781234\",\n          \"bank_id\": \"123123\",\n          \"bank_id_code\": \"GBDSC\"\n        }\n      }\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/payments/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payment by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19e18d11-1790-4ce7-964b-f23a2f32ea4e",
+						"exec": [
+							"pm.test(\"Request was successful\", function(){",
+							"    pm.response.to.be.success;",
+							"});",
+							"",
+							"pm.test(\"Response contains expected fields (id, type, version, organisation_id, attributes)\", function() {",
+							"let json = pm.response.json();",
+							"pm.expect(json).to.have.property('id');",
+							"pm.expect(json).to.have.property('type');",
+							"pm.expect(json).to.have.property('version');",
+							"pm.expect(json).to.have.property('organisation_id');",
+							"pm.expect(json).to.have.property('attributes');",
+							"pm.expect(json.attributes).to.have.property('amount');",
+							"pm.expect(json.attributes).to.have.property('beneficiary_party');",
+							"pm.expect(json.attributes).to.have.property('charges_information');",
+							"pm.expect(json.attributes).to.have.property('currency');",
+							"pm.expect(json.attributes).to.have.property('debtor_party');",
+							"pm.expect(json.attributes).to.have.property('end_to_end_reference');",
+							"pm.expect(json.attributes).to.have.property('fx');",
+							"pm.expect(json.attributes).to.have.property('numeric_reference');",
+							"pm.expect(json.attributes).to.have.property('payment_id');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5aacd5ba-cf1a-4e91-af4d-479276075e6c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/v1/payments/{{id}}/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"payments",
+						"{{id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5eb8b50-ea2a-40ba-aebf-226f0322340a",
+						"exec": [
+							"pm.test(\"Request was successful\", function(){",
+							"    pm.response.to.be.success;",
+							"});",
+							"",
+							"pm.test(\"Response contains expected fields (data, links)\", function() {",
+							"let json = pm.response.json();",
+							"pm.expect(json).to.have.property('data');",
+							"pm.expect(json).to.have.property('links');",
+							"});",
+							"",
+							"pm.test(\"Data envelop in Response contains payments\", function() {",
+							"let json = pm.response.json();",
+							"pm.expect(json.data[0]).to.have.property('id');",
+							"pm.expect(json.data[0]).to.have.property('type');",
+							"pm.expect(json.data[0]).to.have.property('version');",
+							"pm.expect(json.data[0]).to.have.property('organisation_id');",
+							"pm.expect(json.data[0]).to.have.property('attributes');",
+							"});",
+							"",
+							"pm.test(\"Links in Response contains self\", function() {",
+							"let json = pm.response.json();",
+							"pm.expect(json.links).to.have.property('self');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/v1/payments/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26b39e3d-7753-4f6a-94cd-bed03fc8c3c9",
+						"exec": [
+							"pm.test(\"Request was successful\", function(){",
+							"    pm.response.to.be.status(202);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"type\": \"Payment\",\n      \"version\": 0,\n      \"organisation_id\": \"743d5b63-8e6f-432e-a8fa-c5d8d2ee5fcb\",\n      \"attributes\": {\n        \"amount\": \"100.21\",\n        \"beneficiary_party\": {\n          \"account_name\": \"W Owens\",\n          \"account_number\": \"31926819\",\n          \"account_number_code\": \"BBAN\",\n          \"account_type\": 0,\n          \"address\": \"1 The Beneficiary Localtown SE2\",\n          \"bank_id\": \"403000\",\n          \"bank_id_code\": \"GBDSC\",\n          \"name\": \"Wilfred Jeremiah Owens\"\n        },\n        \"charges_information\": {\n          \"bearer_code\": \"SHAR\",\n          \"sender_charges\": [\n            {\n              \"amount\": \"5.00\",\n              \"currency\": \"GBP\"\n            },\n            {\n              \"amount\": \"10.00\",\n              \"currency\": \"USD\"\n            }\n          ],\n          \"receiver_charges_amount\": \"1.00\",\n          \"receiver_charges_currency\": \"USD\"\n        },\n        \"currency\": \"GBP\",\n        \"debtor_party\": {\n          \"account_name\": \"EJ Brown Black\",\n          \"account_number\": \"GB29XABC10161234567801\",\n          \"account_number_code\": \"IBAN\",\n          \"address\": \"10 Debtor Crescent Sourcetown NE1\",\n          \"bank_id\": \"203301\",\n          \"bank_id_code\": \"GBDSC\",\n          \"name\": \"Emelia Jane Brown\"\n        },\n        \"end_to_end_reference\": \"Wil piano Jan\",\n        \"fx\": {\n          \"contract_reference\": \"FX123\",\n          \"exchange_rate\": \"2.00000\",\n          \"original_amount\": \"200.42\",\n          \"original_currency\": \"USD\"\n        },\n        \"numeric_reference\": \"1002001\",\n        \"payment_id\": \"123456789012345678\",\n        \"payment_purpose\": \"Paying for goods/services\",\n        \"payment_scheme\": \"FPS\",\n        \"payment_type\": \"Credit\",\n        \"processing_date\": \"2017-01-18\",\n        \"reference\": \"Payment for Em's piano lessons\",\n        \"scheme_payment_sub_type\": \"InternetBanking\",\n        \"scheme_payment_type\": \"ImmediatePayment\",\n        \"sponsor_party\": {\n          \"account_number\": \"56781234\",\n          \"bank_id\": \"123123\",\n          \"bank_id_code\": \"GBDSC\"\n        }\n      }\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/payments/{{id}}/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"payments",
+						"{{id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Payment by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94c36773-0967-464b-beaa-d87670675075",
+						"exec": [
+							"pm.test(\"Request was successful\", function(){",
+							"    pm.response.to.be.status(202);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/v1/payments/{{id}}/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"payments",
+						"{{id}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

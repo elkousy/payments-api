@@ -1,0 +1,17 @@
+box: golang:1.10
+
+build:
+  steps:
+    - wercker/setup-go-workspace
+
+    - script:
+        name: install dependencies
+        code: make install
+    
+    - script:
+        name: build project
+        code: make build
+
+    - script:
+        name: unit-test project
+        code: make unit-test
