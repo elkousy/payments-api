@@ -31,7 +31,7 @@ test-cover:
 
 .PHONY: integration-tests
 integration-tests: 
-	newman run payments-api.integration-test.json 
+	cd newman && newman run payments-api.integration-test.json -e Dev.postman_environment.json
 
 # .PHONY: test-gherkin
 # test-gherkin:
@@ -50,7 +50,7 @@ docker-compose-build:
 .PHONY: docker-compose-up
 docker-compose-up:
 	make docker-compose-up-dep && \
-   	NO_PROXY=* docker-compose up payments-api
+   	NO_PROXY=* docker-compose up payments-api newman
 
 .PHONY: docker-compose-up-dep
 docker-compose-up-dep:

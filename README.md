@@ -42,14 +42,15 @@ make run
 
 ### Docker
 
-Please note the the `Dockerfile` uses the binary built locally. `Docker-compose` defines services for the Payments API and Postgres:
+Please note the the `Dockerfile` uses the binary built locally. `Docker-compose` defines services for the Payments API, Postgres and `newman` testing:
 
 ```
-make docker-compose-build
+make docker-compose-build # builds the payments-api and the custom newman image
 make docker-compose-up
 ```
 
-You can interact with the API on port `:8080`. The observabilty metrics and the heath checks are exposed on port `:8081`
+You can interact with the API on port `:8080`. The observabilty metrics and the heath checks are exposed on port `:8081`.
+`newman` generates a html report in the reports folder.
 
 ## Testing
 

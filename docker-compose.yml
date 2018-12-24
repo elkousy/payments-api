@@ -39,3 +39,19 @@ services:
         - 8085:8080
     links:
       - db:db
+  # newman
+  newman:
+    container_name: newman-container
+    build:
+      context: ./newman
+    image: newman_testing
+    command: 
+      run payments-api.integration-test.json
+      -e Docker.postman_environment.json
+      -r html,cli
+      --reporter-html-export reports/newman.html
+      --reporter-html-template reports/templates/template.hbs
+    depends_on:
+      - payments-api
+    volumes:
+      - ./newman:/etc/newman
