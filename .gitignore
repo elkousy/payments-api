@@ -15,7 +15,8 @@ debug*
 launch.json 
 .DS_Store
 cover.out
-coverage.html
+*.html
+
 
 #ignore all proto files
 *.proto
